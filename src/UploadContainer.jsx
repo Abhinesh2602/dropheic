@@ -1,79 +1,8 @@
 import { useRef, useState } from "react";
 import { Button } from "./Button";
 import uploadCloud from "./assets/upload.svg";
-import { X } from "lucide-react";
 import { API_URL } from "./config";
-
-const ErrorPopup = ({ message, onClose }) => {
-  const [isConverting, setIsConverting] = useState(false);
-  const [conversionProgress, setConversionProgress] = useState(0);
-
-  const handleDownload = async () => {
-    setIsConverting(true);
-
-    // Fake progress simulation
-    for (let i = 0; i <= 100; i += 10) {
-      await new Promise((resolve) => setTimeout(resolve, 300)); // Wait 300ms between updates
-      setConversionProgress(i);
-    }
-
-    try {
-      const response = await fetch(`${API_URL}/converted/kittyrinky.jpg`);
-      const blob = await response.blob();
-
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = "kittyrinky.jpg";
-
-      document.body.appendChild(link);
-      link.click();
-
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error("Download failed:", error);
-    } finally {
-      setIsConverting(false);
-      setConversionProgress(0);
-    }
-  };
-
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-[#353535] p-6 rounded-lg shadow-xl max-w-md w-full mx-4">
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="text-white text-lg font-semibold">Error</h3>
-          <button
-            onClick={onClose}
-            className="text-gray-400 hover:text-white transition-colors"
-          >
-            <X size={20} />
-          </button>
-        </div>
-        <p className="text-white mb-6">{message}</p>
-        {isConverting && (
-          <div className="mb-4">
-            <div className="w-full bg-gray-700 rounded-full h-2.5 mb-2">
-              <div
-                className="bg-blue-500 h-2.5 rounded-full transition-all duration-300"
-                style={{ width: `${conversionProgress}%` }}
-              ></div>
-            </div>
-            <p className="text-white text-center text-sm">
-              Converting... {conversionProgress}%
-            </p>
-          </div>
-        )}
-        <div className="flex justify-end text-white">
-          <Button onClick={handleDownload} disabled={isConverting}>
-            {isConverting ? "Converting..." : "Download"}
-          </Button>
-        </div>
-      </div>
-    </div>
-  );
-};
+import ErrorPopup from "./ErrorPopus";
 
 export const UploadContainer = ({ isSuccess, setIsSuccess, setData }) => {
   const fileInputRef = useRef(null);
