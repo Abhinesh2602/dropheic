@@ -39,7 +39,7 @@ export const UploadContainer = ({ isSuccess, setIsSuccess, setData }) => {
       showErrorPopup(
         `${jpegFiles.length} JPEG file${
           jpegFiles.length > 1 ? "s" : ""
-        } detected. Uh No Neha this converter is for HEIC files only But still it works for you download below.`
+        } detected.this converter is for HEIC files.`
       );
     }
 
