@@ -39,7 +39,7 @@ export const UploadContainer = ({ isSuccess, setIsSuccess, setData }) => {
       showErrorPopup(
         `${jpegFiles.length} JPEG file${
           jpegFiles.length > 1 ? "s" : ""
-        } detected.this converter is for HEIC files.`
+        } Detected. This converter is for HEIC files.`
       );
     }
 
